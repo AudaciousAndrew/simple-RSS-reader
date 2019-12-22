@@ -1,1 +1,1 @@
-# simple-RSS-reader
+simple rss reader
