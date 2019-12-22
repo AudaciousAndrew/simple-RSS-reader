@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>
+	RSS feed
+	</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/styles.css') }}">
+</head>
+<body>
+	<div class="main-container">
+		<div class="menu">
+			<h4>Feed name</h4>
+			<a href="/" class="btn">Back to main</a>
+			<a href="/" class="btn">Refresh</a>
+		</div>
+		<div class="feed">
+				{% for post in posts %}
+				<div class="post">
+					<h2 class="post__title">{{ post.title }}</h2>
+					<p class="post__content">{{ post.summary | safe }}</p>
+					<a href="#" class="post__link">link test</a>
+				</div>
+				{% endfor %}
+		</div>
+	</div>
+</body>
+</html>
