@@ -1,12 +1,11 @@
 import feedparser
+from models import Feed, Post
+import db_controller
 
 def fetch_feed(url):
   feed = feedparser.parse(url)
-  print (f"Number of RSS posts :{len(feed.entries)}")
+  print (feed.feed.keys())
 
-  entry = feed.entries[5]
-
-  print (entry.keys())
-  print (f"Post Title :{entry.title}")
-  print (f"Post :{entry.updated_parsed}")
+  feed_id = db_controller.insert_feed(feed.feed)
   
+  return feed_id
