@@ -68,6 +68,10 @@ body{
 	box-shadow: 0 1rem 2rem rgba( 0 , 0 , 0 , .4);
 }
 
+.w--100{
+	width: 100%;
+}
+
 .feed{
 	margin-left: 20rem;
 }
@@ -75,6 +79,8 @@ body{
 .post{
 	padding: 1rem 2rem;
 	border-bottom: 1px solid grey;
+	width: calc( 100vw - 22rem);
+	overflow: hidden;
 }
 
 .post__title{
@@ -83,10 +89,26 @@ body{
 
 .post__content{
 	padding-bottom: 1rem;
+	width: 100%;
+	overflow: hidden;
+}
+
+.post img{
+	max-width: 100%;
+}
+
+.pagination {
+	padding: 1rem;
 }
 
 .post__link{
 	text-decoration: none;
+}
+
+.post__heading{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .index-body{

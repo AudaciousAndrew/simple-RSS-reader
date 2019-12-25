@@ -8,26 +8,33 @@
 <body>
 	<div class="main-container">
 		<div class="menu">
-			<h4>Feed name</h4>
+			<h4>{{ feed.title }}</h4>	
 			<a href="/" class="btn">Back to main</a>
-			<a href="/" class="btn">Refresh</a>
+			<form method="post" action="/feed/{{ feed_id }}">
+				<a href="{{ feed.link }}"></a>
+				<input class="btn w--100" type="submit" value="Refresh">
+			</form>
 		</div>
 		<div class="feed">
-				{% for post in posts %}
-				<div class="post">
+			{% for post in posts %}
+			<div class="post">
+				<div class="post__heading">
 					<h2 class="post__title">{{ post.title }}</h2>
-					<p class="post__content">{{ post.summary | safe }}</p>
-					<a href="#" class="post__link">link test</a>
+					<p class="right"> {{ post.published | format_time }} </p>
 				</div>
-				{% endfor %}
+				<p class="post__content">{{ post.summary | safe }}</p>
+			</div>
+			{% endfor %}
+			<div class="pagination">
+			{% for n in range(1, pages_count + 1) %}
+	    		{% if n == page %}
+	        		{{ n }}
+	    		{% else %}
+	        		<a href="/feed/{{ feed_id }}?page={{ n }}">{{ n }}</a>
+	    		{% endif %}
+			{% endfor %}
+			</div>
 		</div>
-		{% for n in range(1, pages_count + 1) %}
-    		{% if n == page %}
-        		{{ n }}
-    		{% else %}
-        		<a href="/feed/{{ feed_id }}?page={{ n }}">{{ n }}</a>
-    		{% endif %}
-		{% endfor %}
 	</div>
 </body>
 </html>
