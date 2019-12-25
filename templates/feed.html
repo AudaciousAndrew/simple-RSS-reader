@@ -21,6 +21,13 @@
 				</div>
 				{% endfor %}
 		</div>
+		{% for n in range(1, pages_count + 1) %}
+    		{% if n == page %}
+        		{{ n }}
+    		{% else %}
+        		<a href="/feed/{{ feed_id }}?page={{ n }}">{{ n }}</a>
+    		{% endif %}
+		{% endfor %}
 	</div>
 </body>
 </html>

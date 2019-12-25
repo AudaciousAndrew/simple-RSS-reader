@@ -10,19 +10,20 @@ def create_connection():
 def init(script_names: List[str]):
   cursor = create_connection().cursor()
 
-  cursor.execute("""create table if not exists feeds (
-    id integer primary key autoincrement,
-    title text not null,
-    url text not null
+  cursor.execute("""CREATE TABLE IF NOT EXISTS FEED (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    TITLE TEXT NOT NULL,
+    LINK TEXT NOT NULL UNIQUE
   );""") 
 
-  cursor.execute("""create table if not exists posts (
-    id integer primary key autoincrement,
-    feed_id integer not null,
-    date_published integer,
-    title text,
-    summary text,
-    foreign key(feed_id) references feeds(id)
+  cursor.execute("""CREATE TABLE IF NOT EXISTS POST (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    POST_ID TEXT TEXT NOT NULL,
+    FEED_ID INTEGER NOT NULL,
+    PUBLISHED INTEGER NOT NULL,
+    TITLE TEXT NOT NULL,
+    SUMMARY TEXT NOT NULL,
+    FOREIGN KEY(FEED_ID) REFERENCES FEED(ID)
   );""")
 
 
