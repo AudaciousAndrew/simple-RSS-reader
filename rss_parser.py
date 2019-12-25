@@ -1,11 +1,31 @@
 import feedparser
-from models import Feed, Post
 import db_controller
 
-def fetch_feed(url):
-  feed = feedparser.parse(url)
-  print (feed.feed.keys())
+from typing import List
+from models import Feed, Post
 
-  feed_id = db_controller.insert_feed(feed.feed)
-  
-  return feed_id
+
+def parse_feed(link: str) -> bool:
+    parsed_feed = feedparser.parse(link)
+    if hasattr(parsed_feed, 'bozo_exception'):
+        return False
+
+    feed_id = feed_repository.get_feed_id_by_link(link)
+    if feed_id is None:
+        feed = Feed(parsed_feed.feed.title, link)
+        feed_id = feed_repository.save_feed(feed)
+
+    last_post_id = feed_repository.get_last_post_id(feed_id)
+
+    posts = parse_posts(parsed_feed.entries, last_post_id)
+    feed_repository.save_posts(feed_id, posts)
+
+
+def parse_posts(posts, last_post_id: str) -> List[Post]:
+    result = []
+    for post in posts:
+        if post.id == last_post_id:
+            break
+        result.append(Post(post.id, post.published_parsed, post.title, post.summary))
+
+    return result

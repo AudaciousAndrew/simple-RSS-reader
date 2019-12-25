@@ -6,8 +6,6 @@ app = Flask(__name__)
 
 PAGE_SIZE = 10
 
-rss_parser.fetch_feed("https://www.reddit.com/r/Python/.rss")
-
 @app.route("/")
 def index():
     feeds = db_controller.get_all_feeds()
